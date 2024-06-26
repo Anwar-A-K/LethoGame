@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 
@@ -33,9 +34,12 @@ public:
 
     }
 
-    void GiveDamage(int damage) {
+    int GiveDamage() {
 
+        srand(time(0));
+        int damage = (rand() % (maxDamage - minDamage + 1) + minDamage);
         cout << "Player is dealing " << damage << " to the enemy" << endl;
+        return damage;
 
     }
 
@@ -45,12 +49,58 @@ public:
 
     }
 
-    void Heal(int heal) {
+    int Heal() {
 
+        srand(time(0));
+        int heal = (rand() % (maxHeal - minHeal + 1) + minHeal);
         cout << "Player has healed " << heal << " health" << endl;
+
+        health += heal;
+        cout << "Player health is  " << health << endl;
+
+        return heal;
 
     }
 
+
+};
+
+class Enemy {
+private:
+
+    int health = 100;
+    int maxDamage = 30;
+    int minDamage = 10;
+
+public:
+
+    Enemy() {
+        cout << "Enemy is Spawned" << endl;
+        cout << "Enemy health is " << health << endl;
+        cout << "Enemy maxDamage is " << maxDamage << endl;
+        cout << "Enemy minDamage is " << minDamage << endl;
+    }
+
+    int GetHealth() {
+
+        return health;
+
+    }
+
+    int GiveDamage() {
+
+        srand(time(0));
+        int damage = (rand() % (maxDamage - minDamage + 1) + minDamage);
+        cout << "Enemy is dealing " << damage << " to the player" << endl;
+        return damage;
+
+    }
+
+    void TakeDamage(int damage) {
+
+        cout << "Enemy is taking " << damage << " from the player" << endl;
+
+    }
 
 };
 
@@ -75,6 +125,7 @@ int main()
             cout << "Game has started" << endl;
 
             Player newPlayer;
+            Enemy newEnemy;
         }
         else {
             cout << "Game has ended" << endl;
